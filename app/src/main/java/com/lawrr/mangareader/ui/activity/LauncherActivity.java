@@ -1,13 +1,16 @@
 package com.lawrr.mangareader.ui.activity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.lawrr.mangareader.R;
+import com.lawrr.mangareader.ui.fragment.CatalogFragment;
+import com.lawrr.mangareader.ui.dummy.DummyContent;
 
-public class LauncherActivity extends AppCompatActivity {
+public class LauncherActivity extends AppCompatActivity
+        implements CatalogFragment.CatalogInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +38,9 @@ public class LauncherActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onCatalogItemSelected(DummyContent.DummyItem item) {
+
     }
 }
