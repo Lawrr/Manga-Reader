@@ -4,12 +4,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.fragment.CatalogFragment;
 import com.lawrr.mangareader.ui.item.CatalogItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,13 +20,21 @@ import java.util.List;
  * specified {@link CatalogFragment.CatalogInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.ViewHolder> {
+public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.ViewHolder> implements Filterable {
 
-    private final List<CatalogItem> mValues;
+    // Items being shown on list (changes with filter)
+    private List<CatalogItem> items;
+    // Original list of items
+    private final List<CatalogItem> originalItems;
     private final CatalogFragment.CatalogInteractionListener mListener;
 
+    // Filter
+    private final Object filterLock = new Object();
+    private CatalogItemFilter itemFilter;
+
     public CatalogItemAdapter(List<CatalogItem> items, CatalogFragment.CatalogInteractionListener listener) {
-        mValues = items;
+        this.items = items;
+        originalItems = items;
         mListener = listener;
     }
 
@@ -36,9 +47,9 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mItem = items.get(position);
+        holder.mIdView.setText(items.get(position).id);
+        holder.mContentView.setText(items.get(position).content);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +65,7 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return items.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -73,6 +84,51 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
         @Override
         public String toString() {
             return super.toString() + " '" + mContentView.getText() + "'";
+        }
+    }
+
+    //Return filter
+	@Override
+	public Filter getFilter() {
+        if (itemFilter == null) {
+            itemFilter = new CatalogItemFilter();
+        }
+        return itemFilter;
+    }
+
+	/**
+	 * Custom Filter implementation for the adapter.
+	 *
+	 */
+	private class CatalogItemFilter extends Filter {
+        @Override
+        protected FilterResults performFiltering(CharSequence query) {
+            FilterResults results = new FilterResults();
+            List<CatalogItem> filteredItems = new ArrayList<>();
+
+            // No query is sent to filter so send back the original list
+            if (query == null || query.length() == 0) {
+                synchronized (filterLock) {
+                    filteredItems = originalItems;
+                }
+            } else {
+                // Filter from original list of items
+                for (CatalogItem item : originalItems) {
+                    final String text = item.content.toLowerCase();
+                    if (text.contains(query.toString().toLowerCase())) {
+                        filteredItems.add(item);
+                    }
+                }
+            }
+            results.values = filteredItems;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence query, FilterResults results) {
+            items = (ArrayList<CatalogItem>) results.values;
+            notifyDataSetChanged();
         }
     }
 }

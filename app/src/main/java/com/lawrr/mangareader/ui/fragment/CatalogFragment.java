@@ -4,12 +4,19 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.adapter.CatalogItemAdapter;
@@ -31,6 +38,15 @@ public class CatalogFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private CatalogInteractionListener mListener;
+
+    // List
+    private List<CatalogItem> items = new ArrayList<>();
+    private CatalogItemAdapter listAdapter;
+
+    // Views
+    private SearchView searchView;
+    private ProgressBar progressBar;
+    private RecyclerView recyclerView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,6 +72,28 @@ public class CatalogFragment extends Fragment {
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_catalog, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+
+        // Set up search view
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        initSearchViewListener(searchView);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -63,19 +101,30 @@ public class CatalogFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_catalog, container, false);
 
+        // Set member variables
+        progressBar = (ProgressBar) view.findViewById(R.id.fragment_catalog_progress_bar);
+        recyclerView = (RecyclerView) view.findViewById(R.id.list);
+
+
         // Set the adapter properties
         Context context = view.getContext();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
         if (mColumnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-        List<CatalogItem> items = new ArrayList<>();
+
+        // List ready - remove progress bar
+        progressBar.setVisibility(View.GONE);
+
+        // Generate list
         for(int i = 0; i < 5000; i++) {
             items.add(new CatalogItem(String.valueOf(i), "Item " + i, "Item details"));
         }
-        recyclerView.setAdapter(new CatalogItemAdapter(items, mListener));
+
+        // Set adapter
+        listAdapter = new CatalogItemAdapter(items, mListener);
+        recyclerView.setAdapter(listAdapter);
 
         return view;
     }
@@ -102,5 +151,33 @@ public class CatalogFragment extends Fragment {
      */
     public interface CatalogInteractionListener {
         void onCatalogItemSelected(CatalogItem item);
+    }
+
+    private void initSearchViewListener(final SearchView searchView) {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                // Apply filter
+                listAdapter.getFilter().filter(query);
+
+                // Scroll list to top
+                recyclerView.scrollToPosition(0);
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // Change focus to list (so when you go back the keyboard doesn't open)
+                getView().requestFocus();
+
+                // Close keyboard
+                InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(searchView.getWindowToken(), 0);
+
+                return true;
+            }
+        });
     }
 }
