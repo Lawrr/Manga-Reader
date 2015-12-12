@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/list"
-    android:name="com.lawrr.mangareader.ui.fragment.CatalogFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    app:layoutManager="LinearLayoutManager"
-    tools:context="com.lawrr.mangareader.ui.fragment.CatalogFragment"
-    tools:listitem="@layout/fragment_catalog_item" />
+    android:orientation="vertical"
+	tools:context=".CatalogFragment" >
+
+    <ProgressBar
+	   android:id="@+id/fragment_catalog_progress_bar"
+	   style="?android:attr/progressBarStyleLarge"
+	   android:layout_width="wrap_content"
+	   android:layout_height="wrap_content"
+	   android:layout_centerHorizontal="true"
+	   android:layout_centerVertical="true" />
+
+    <android.support.v7.widget.RecyclerView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layoutManager="LinearLayoutManager"
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</RelativeLayout>

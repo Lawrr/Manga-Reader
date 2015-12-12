@@ -8,21 +8,21 @@ import android.widget.TextView;
 
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.fragment.CatalogFragment;
-import com.lawrr.mangareader.ui.dummy.DummyContent.DummyItem;
+import com.lawrr.mangareader.ui.item.CatalogItem;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link CatalogItem} and makes a call to the
  * specified {@link CatalogFragment.CatalogInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.ViewHolder> {
 
-    private final List<DummyItem> mValues;
+    private final List<CatalogItem> mValues;
     private final CatalogFragment.CatalogInteractionListener mListener;
 
-    public CatalogItemAdapter(List<DummyItem> items, CatalogFragment.CatalogInteractionListener listener) {
+    public CatalogItemAdapter(List<CatalogItem> items, CatalogFragment.CatalogInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -61,7 +61,7 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
         public final View mView;
         public final TextView mIdView;
         public final TextView mContentView;
-        public DummyItem mItem;
+        public CatalogItem mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.fragment.CatalogFragment;
-import com.lawrr.mangareader.ui.dummy.DummyContent;
+import com.lawrr.mangareader.ui.item.CatalogItem;
 
 public class LauncherActivity extends AppCompatActivity
         implements CatalogFragment.CatalogInteractionListener {
@@ -40,7 +40,7 @@ public class LauncherActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void onCatalogItemSelected(DummyContent.DummyItem item) {
+    public void onCatalogItemSelected(CatalogItem item) {
 
     }
 }

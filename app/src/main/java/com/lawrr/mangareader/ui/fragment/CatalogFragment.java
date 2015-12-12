@@ -13,7 +13,10 @@ import android.view.ViewGroup;
 
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.adapter.CatalogItemAdapter;
-import com.lawrr.mangareader.ui.dummy.DummyContent;
+import com.lawrr.mangareader.ui.item.CatalogItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -60,20 +63,22 @@ public class CatalogFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_catalog, container, false);
 
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new CatalogItemAdapter(DummyContent.ITEMS, mListener));
+        // Set the adapter properties
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        if (mColumnCount <= 1) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
+        List<CatalogItem> items = new ArrayList<>();
+        for(int i = 0; i < 5000; i++) {
+            items.add(new CatalogItem(String.valueOf(i), "Item " + i, "Item details"));
+        }
+        recyclerView.setAdapter(new CatalogItemAdapter(items, mListener));
+
         return view;
     }
-
 
     @Override
     public void onAttach(Activity activity) {
@@ -96,6 +101,6 @@ public class CatalogFragment extends Fragment {
      * Interface to be implemented by activities which use this fragment
      */
     public interface CatalogInteractionListener {
-        void onCatalogItemSelected(DummyContent.DummyItem item);
+        void onCatalogItemSelected(CatalogItem item);
     }
 }
