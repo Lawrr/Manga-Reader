@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.adapter.CatalogItemAdapter;
+import com.lawrr.mangareader.ui.decoration.DividerItemDecoration;
 import com.lawrr.mangareader.ui.item.CatalogItem;
 
 import java.util.ArrayList;
@@ -125,6 +126,8 @@ public class CatalogFragment extends Fragment {
         // Set adapter
         listAdapter = new CatalogItemAdapter(items, mListener);
         recyclerView.setAdapter(listAdapter);
+        RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
+        recyclerView.addItemDecoration(itemDecoration);
 
         return view;
     }
