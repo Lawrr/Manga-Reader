@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 
@@ -85,6 +86,7 @@ public class CatalogFragment extends Fragment {
         // Set up search view
         final MenuItem searchItem = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
         initSearchViewListener(searchView);
     }
 
