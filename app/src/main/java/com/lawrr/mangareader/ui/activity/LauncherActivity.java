@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.fragment.CatalogFragment;
@@ -41,6 +42,6 @@ public class LauncherActivity extends AppCompatActivity
     }
 
     public void onCatalogItemSelected(CatalogItem item) {
-
+        Toast.makeText(this, item.content, Toast.LENGTH_SHORT).show();
     }
 }
