@@ -1,4 +1,4 @@
-package com.lawrr.mangareader.ui.activity;
+package com.lawrr.mangareader.ui.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,8 +7,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.lawrr.mangareader.R;
-import com.lawrr.mangareader.ui.fragment.CatalogFragment;
-import com.lawrr.mangareader.ui.item.CatalogItem;
+import com.lawrr.mangareader.ui.fragments.CatalogFragment;
+import com.lawrr.mangareader.ui.items.CatalogItem;
 
 public class LauncherActivity extends AppCompatActivity
         implements CatalogFragment.CatalogInteractionListener {

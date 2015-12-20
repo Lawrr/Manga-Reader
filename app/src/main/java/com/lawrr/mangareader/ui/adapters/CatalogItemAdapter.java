@@ -1,4 +1,4 @@
-package com.lawrr.mangareader.ui.adapter;
+package com.lawrr.mangareader.ui.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.lawrr.mangareader.R;
-import com.lawrr.mangareader.ui.fragment.CatalogFragment;
-import com.lawrr.mangareader.ui.item.CatalogItem;
+import com.lawrr.mangareader.ui.fragments.CatalogFragment;
+import com.lawrr.mangareader.ui.items.CatalogItem;
 
 import java.util.ArrayList;
 import java.util.List;

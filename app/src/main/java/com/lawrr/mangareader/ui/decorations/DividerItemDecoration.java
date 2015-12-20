@@ -1,4 +1,4 @@
-package com.lawrr.mangareader.ui.decoration;
+package com.lawrr.mangareader.ui.decorations;
 
 import android.content.Context;
 import android.content.res.TypedArray;

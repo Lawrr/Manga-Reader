@@ -1,4 +1,4 @@
-package com.lawrr.mangareader.ui.item;
+package com.lawrr.mangareader.ui.items;
 
 public class CatalogItem {
     public final String id;

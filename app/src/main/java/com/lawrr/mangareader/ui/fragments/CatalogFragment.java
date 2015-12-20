@@ -1,4 +1,4 @@
-package com.lawrr.mangareader.ui.fragment;
+package com.lawrr.mangareader.ui.fragments;
 
 import android.app.Activity;
 import android.content.Context;
@@ -20,9 +20,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
 
 import com.lawrr.mangareader.R;
-import com.lawrr.mangareader.ui.adapter.CatalogItemAdapter;
-import com.lawrr.mangareader.ui.decoration.DividerItemDecoration;
-import com.lawrr.mangareader.ui.item.CatalogItem;
+import com.lawrr.mangareader.ui.adapters.CatalogItemAdapter;
+import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
+import com.lawrr.mangareader.ui.items.CatalogItem;
 
 import java.util.ArrayList;
 import java.util.List;
