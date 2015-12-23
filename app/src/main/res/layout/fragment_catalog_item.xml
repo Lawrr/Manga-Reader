@@ -18,4 +18,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fragment_catalog_item_margin"
         android:textAppearance="?attr/textAppearanceListItem" />
+
 </LinearLayout>
