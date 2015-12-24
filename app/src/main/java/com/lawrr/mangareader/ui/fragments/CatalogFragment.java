@@ -76,6 +76,12 @@ public class CatalogFragment extends Fragment {
         }
 
         setHasOptionsMenu(true);
+
+        // Generate list
+        for(int i = 0; i < 5000; i++) {
+            items.add(new CatalogItem(String.valueOf(i), "Item " + i, "Item details"));
+        }
+        listAdapter = new CatalogItemAdapter(items, mListener);
     }
 
     @Override
@@ -102,36 +108,29 @@ public class CatalogFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_catalog, container, false);
+        // Get view
+        return inflater.inflate(R.layout.fragment_catalog, container, false);
+    }
 
-        // Set member variables
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        // View lookups
         progressBar = (ProgressBar) view.findViewById(R.id.fragment_catalog_progress_bar);
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
+        // List ready - remove progress bar
+        progressBar.setVisibility(View.GONE);
 
-        // Set the adapter properties
+        // Set the adapter
         Context context = view.getContext();
         if (mColumnCount <= 1) {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
         } else {
             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
         }
-
-        // List ready - remove progress bar
-        progressBar.setVisibility(View.GONE);
-
-        // Generate list
-        for(int i = 0; i < 5000; i++) {
-            items.add(new CatalogItem(String.valueOf(i), "Item " + i, "Item details"));
-        }
-
-        // Set adapter
-        listAdapter = new CatalogItemAdapter(items, mListener);
         recyclerView.setAdapter(listAdapter);
         RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL_LIST);
         recyclerView.addItemDecoration(itemDecoration);
-
-        return view;
     }
 
     @Override
