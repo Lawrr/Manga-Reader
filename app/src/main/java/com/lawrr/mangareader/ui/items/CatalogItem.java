@@ -1,18 +1,22 @@
 package com.lawrr.mangareader.ui.items;
 
 public class CatalogItem {
-    public final String id;
-    public final String content;
-    public final String details;
+    private String name;
+    private String urlId;
+    private boolean isOngoing;
 
-    public CatalogItem(String id, String content, String details) {
-        this.id = id;
-        this.content = content;
-        this.details = details;
+    public CatalogItem(String name, String urlId, boolean isOngoing) {
+        this.name = name;
+        this.urlId = urlId;
+        this.isOngoing = isOngoing;
     }
 
     @Override
     public String toString() {
-        return content;
+        return name;
+    }
+
+    public String getName() {
+        return name;
     }
 }

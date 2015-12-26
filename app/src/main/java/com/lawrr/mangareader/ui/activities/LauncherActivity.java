@@ -42,6 +42,6 @@ public class LauncherActivity extends AppCompatActivity
     }
 
     public void onCatalogItemSelected(CatalogItem item) {
-        Toast.makeText(this, item.content, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, item.getName(), Toast.LENGTH_SHORT).show();
     }
 }

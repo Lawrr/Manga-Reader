@@ -47,17 +47,16 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = items.get(position);
-        holder.mIdView.setText(items.get(position).id);
-        holder.mContentView.setText(items.get(position).content);
+        holder.item = items.get(position);
+        holder.nameView.setText(items.get(position).getName());
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onCatalogItemSelected(holder.mItem);
+                    mListener.onCatalogItemSelected(holder.item);
                 }
             }
         });
@@ -69,21 +68,19 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public CatalogItem mItem;
+        public final View view;
+        public final TextView nameView;
+        public CatalogItem item;
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            this.view = view;
+            nameView = (TextView) view.findViewById(R.id.name);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + nameView.getText();
         }
     }
 
@@ -114,7 +111,7 @@ public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.
             } else {
                 // Filter from original list of items
                 for (CatalogItem item : originalItems) {
-                    final String text = item.content.toLowerCase();
+                    final String text = item.getName().toLowerCase();
                     if (text.contains(query.toString().toLowerCase())) {
                         filteredItems.add(item);
                     }

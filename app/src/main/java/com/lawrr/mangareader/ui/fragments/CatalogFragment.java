@@ -79,7 +79,7 @@ public class CatalogFragment extends Fragment {
 
         // Generate list
         for(int i = 0; i < 5000; i++) {
-            items.add(new CatalogItem(String.valueOf(i), "Item " + i, "Item details"));
+            items.add(new CatalogItem("Item " + i, String.valueOf(i), true));
         }
         listAdapter = new CatalogItemAdapter(items, mListener);
     }
