@@ -23,6 +23,7 @@ import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.adapters.CatalogItemAdapter;
 import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
 import com.lawrr.mangareader.ui.items.CatalogItem;
+import com.lawrr.mangareader.web.MangaSiteParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link CatalogInteractionListener}
  * interface.
  */
-public class CatalogFragment extends Fragment {
+public class CatalogFragment extends Fragment implements MangaSiteParser.MangaSiteParserInteractionListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -77,11 +78,10 @@ public class CatalogFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        // Generate list
-        for(int i = 0; i < 5000; i++) {
-            items.add(new CatalogItem("Item " + i, String.valueOf(i), true));
-        }
         listAdapter = new CatalogItemAdapter(items, mListener);
+
+        // Load list
+        (new MangaSiteParser(this)).execute("http://www.mangafox.me/manga");
     }
 
     @Override
@@ -117,9 +117,6 @@ public class CatalogFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.fragment_catalog_progress_bar);
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
-        // List ready - remove progress bar
-        progressBar.setVisibility(View.GONE);
-
         // Set the adapter
         Context context = view.getContext();
         if (mColumnCount <= 1) {
@@ -147,6 +144,13 @@ public class CatalogFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void onRetrievedMangaList(List<CatalogItem> items) {
+        progressBar.setVisibility(View.GONE);
+
+        listAdapter = new CatalogItemAdapter(items, mListener);
+        recyclerView.setAdapter(listAdapter);
     }
 
     /**
