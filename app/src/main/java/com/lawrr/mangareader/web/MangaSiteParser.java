@@ -1,7 +1,6 @@
 package com.lawrr.mangareader.web;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.lawrr.mangareader.ui.items.CatalogItem;
 
@@ -38,10 +37,10 @@ public class MangaSiteParser extends AsyncTask<String, Void, List<CatalogItem>> 
 
     public List<CatalogItem> getMangaList(String url) throws IOException {
         List<CatalogItem> list = new ArrayList<>();
-        Document doc = Jsoup.connect(url).maxBodySize(20*1024*1024).get();
+        Document doc = Jsoup.connect(url).maxBodySize(0).get();
         Elements manga = doc.select(".manga_list li a");
         for (Element m : manga) {
-            boolean isOngoing = m.attr("class").equals("series_preview manga_open") ? true : false;
+            boolean isOngoing = m.attr("class").equals("series_preview manga_open");
             CatalogItem item = new CatalogItem(m.text(), m.attr("href"), isOngoing);
             list.add(item);
         }

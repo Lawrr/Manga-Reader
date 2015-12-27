@@ -19,4 +19,12 @@ public class CatalogItem {
     public String getName() {
         return name;
     }
+
+    public String getUrlId() {
+        return urlId;
+    }
+
+    public boolean isOngoing() {
+        return isOngoing;
+    }
 }
