@@ -9,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -81,7 +82,10 @@ public class CatalogFragment extends Fragment implements MangaSiteParser.MangaSi
         listAdapter = new CatalogItemAdapter(items, mListener);
 
         // Load list
-        (new MangaSiteParser(this)).execute("http://www.mangafox.me/manga");
+        if (savedInstanceState == null) {
+            Log.d("Manga", "Loading manga list");
+            (new MangaSiteParser(this)).execute("http://www.mangafox.me/manga");
+        }
     }
 
     @Override
@@ -147,6 +151,7 @@ public class CatalogFragment extends Fragment implements MangaSiteParser.MangaSi
     }
 
     public void onRetrievedMangaList(List<CatalogItem> items) {
+        Log.d("Manga", "Loaded manga list");
         progressBar.setVisibility(View.GONE);
 
         listAdapter = new CatalogItemAdapter(items, mListener);
