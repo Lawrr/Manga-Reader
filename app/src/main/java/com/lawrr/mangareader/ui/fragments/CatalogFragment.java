@@ -82,10 +82,7 @@ public class CatalogFragment extends Fragment implements MangaSiteParser.MangaSi
         listAdapter = new CatalogItemAdapter(items, mListener);
 
         // Load list
-        if (savedInstanceState == null) {
-            Log.d("Manga", "Loading manga list");
-            (new MangaSiteParser(this)).execute("http://www.mangafox.me/manga");
-        }
+        loadMangaList("http://mangafox.me/manga");
     }
 
     @Override
@@ -153,7 +150,16 @@ public class CatalogFragment extends Fragment implements MangaSiteParser.MangaSi
     public void onRetrievedMangaList(List<CatalogItem> items) {
         Log.d("Manga", "Loaded manga list");
         progressBar.setVisibility(View.GONE);
+        updateMangaList(items);
+    }
 
+    private void loadMangaList(String url) {
+        Log.d("Manga", "Loading manga list");
+        (new MangaSiteParser(this)).execute(url);
+    }
+
+    private void updateMangaList(List<CatalogItem> items) {
+        this.items = items;
         listAdapter = new CatalogItemAdapter(items, mListener);
         recyclerView.setAdapter(listAdapter);
     }
