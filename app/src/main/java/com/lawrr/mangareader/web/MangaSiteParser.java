@@ -42,7 +42,7 @@ public class MangaSiteParser extends AsyncTask<String, Void, List<CatalogItem>> 
     @Override
     protected void onPostExecute(List<CatalogItem> list) {
         super.onPostExecute(list);
-        long duration = end- start;
+        long duration = end - start;
 		Toast.makeText(((Fragment) listener).getActivity(), "Time taken: " + String.valueOf(duration) + " milliseconds.", Toast.LENGTH_LONG).show();
         listener.onRetrievedMangaList(list);
     }
