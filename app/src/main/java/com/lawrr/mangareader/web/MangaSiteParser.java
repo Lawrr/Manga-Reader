@@ -1,6 +1,10 @@
 package com.lawrr.mangareader.web;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.lawrr.mangareader.ui.items.CatalogItem;
 
@@ -15,6 +19,8 @@ import java.util.List;
 
 public class MangaSiteParser extends AsyncTask<String, Void, List<CatalogItem>> {
     private MangaSiteParserInteractionListener listener;
+    private long start;
+    private long end;
 
     public MangaSiteParser(MangaSiteParserInteractionListener listener) {
         this.listener = listener;
@@ -23,8 +29,12 @@ public class MangaSiteParser extends AsyncTask<String, Void, List<CatalogItem>> 
     @Override
     protected List<CatalogItem> doInBackground(String... urls) {
         try {
-            return getMangaList(urls[0]);
+            start = System.currentTimeMillis();
+            List<CatalogItem> list = getMangaList(urls[0]);
+            end = System.currentTimeMillis();
+            return list;
         } catch (IOException e) {
+            Log.e("Manga", "IOException loading manga list", e);
             return new ArrayList<>();
         }
     }
@@ -32,6 +42,8 @@ public class MangaSiteParser extends AsyncTask<String, Void, List<CatalogItem>> 
     @Override
     protected void onPostExecute(List<CatalogItem> list) {
         super.onPostExecute(list);
+        long duration = end- start;
+		Toast.makeText(((Fragment) listener).getActivity(), "Time taken: " + String.valueOf(duration) + " milliseconds.", Toast.LENGTH_LONG).show();
         listener.onRetrievedMangaList(list);
     }
 
