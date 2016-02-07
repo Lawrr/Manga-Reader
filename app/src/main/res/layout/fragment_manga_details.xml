@@ -1,13 +1,43 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mainScrollView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.lawrr.mangareader.ui.fragments.MangaDetailsFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin" >
 
-</FrameLayout>
+        <ProgressBar
+           android:id="@+id/fragment_manga_details_progress_bar"
+           style="?android:attr/progressBarStyleLarge"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+           android:layout_centerVertical="true" />
+
+        <ImageView
+            android:id="@+id/fragment_manga_details_image"
+            android:layout_width="125dip"
+            android:layout_height="190dip" />
+
+        <TextView
+            android:id="@+id/fragment_manga_details_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/fragment_manga_details_image"
+            android:paddingLeft="6dip" />
+
+        <TextView
+            android:id="@+id/fragment_manga_details_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_manga_details_image"
+            android:paddingTop="6dip" />
+
+    </RelativeLayout>
+
+</ScrollView>
