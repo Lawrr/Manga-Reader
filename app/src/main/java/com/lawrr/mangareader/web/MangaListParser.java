@@ -16,12 +16,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MangaSiteParser extends AsyncTask<String, Void, List<CatalogItem>> {
-    private MangaSiteParserInteractionListener listener;
+public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> {
+    private MangaListParserInteractionListener listener;
     private long start;
     private long end;
 
-    public MangaSiteParser(MangaSiteParserInteractionListener listener) {
+    public MangaListParser(MangaListParserInteractionListener listener) {
         this.listener = listener;
     }
 
@@ -62,7 +62,7 @@ public class MangaSiteParser extends AsyncTask<String, Void, List<CatalogItem>> 
         return list;
     }
 
-    public interface MangaSiteParserInteractionListener {
+    public interface MangaListParserInteractionListener {
         void onRetrievedMangaList(List<CatalogItem> item);
     }
 }

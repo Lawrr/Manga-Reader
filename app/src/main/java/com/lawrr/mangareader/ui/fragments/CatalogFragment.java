@@ -24,7 +24,7 @@ import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.adapters.CatalogItemAdapter;
 import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
 import com.lawrr.mangareader.ui.items.CatalogItem;
-import com.lawrr.mangareader.web.MangaSiteParser;
+import com.lawrr.mangareader.web.MangaListParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +35,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link CatalogInteractionListener}
  * interface.
  */
-public class CatalogFragment extends Fragment implements MangaSiteParser.MangaSiteParserInteractionListener {
+public class CatalogFragment extends Fragment implements MangaListParser.MangaListParserInteractionListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -155,7 +155,7 @@ public class CatalogFragment extends Fragment implements MangaSiteParser.MangaSi
 
     private void loadMangaList(String url) {
         Log.d("Manga", "Loading manga list");
-        (new MangaSiteParser(this)).execute(url);
+        (new MangaListParser(this)).execute(url);
     }
 
     private void updateMangaList(List<CatalogItem> items) {
