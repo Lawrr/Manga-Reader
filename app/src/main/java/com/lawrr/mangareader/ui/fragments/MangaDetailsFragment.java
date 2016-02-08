@@ -89,23 +89,29 @@ public class MangaDetailsFragment extends Fragment
         mListener = null;
     }
 
-    public void onRetrievedMangaPage(final MangaSeriesItem item) {
-        // Retrieves an image specified by the URL, displays it in the UI.
+    public void onRetrievedMangaPage(MangaSeriesItem item) {
+        updateView(item);
+    }
+
+    private void updateView(final MangaSeriesItem item) {
         ImageRequest request = new ImageRequest(item.getImageUrl(),
-            new Response.Listener<Bitmap>() {
-                @Override
-                public void onResponse(Bitmap bitmap) {
-                    imageView.setImageBitmap(bitmap);
-                    infoView.setText(Html.fromHtml("<b>Author</b>: " + item.getAuthor() + "<br /><b>Artist</b>: " + item.getArtist()));
-                    summaryView.setText(item.getSummary());
-                    progressBar.setVisibility(View.GONE);
-                }
-            }, 0, 0, null,
-            new Response.ErrorListener() {
-                public void onErrorResponse(VolleyError error) {
-                }
-            });
-        // Access the RequestQueue through your singleton class.
+                new Response.Listener<Bitmap>() {
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        // Show views
+                        imageView.setImageBitmap(bitmap);
+                        String infoText = "<b>Author</b>: " + item.getAuthor() + "<br /><b>Artist</b>: " + item.getArtist();
+                        infoView.setText(Html.fromHtml(infoText));
+                        summaryView.setText(item.getSummary());
+
+                        // Remove progress bar
+                        progressBar.setVisibility(View.GONE);
+                    }
+                }, 0, 0, null,
+                new Response.ErrorListener() {
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
         VolleySingleton.getInstance(this.getActivity()).addToRequestQueue(request);
     }
 

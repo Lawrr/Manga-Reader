@@ -15,11 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.lawrr.mangareader.R;
+import com.lawrr.mangareader.ui.fragments.MangaChapterFragment;
 import com.lawrr.mangareader.ui.fragments.MangaDetailsFragment;
 import com.lawrr.mangareader.ui.items.CatalogItem;
+import com.lawrr.mangareader.ui.items.MangaChapterItem;
 
 public class MangaPageActivity extends AppCompatActivity
-        implements MangaDetailsFragment.MangaDetailsInteractionListener {
+        implements MangaDetailsFragment.MangaDetailsInteractionListener, MangaChapterFragment.MangaChapterInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -108,7 +110,7 @@ public class MangaPageActivity extends AppCompatActivity
                 case 0:
                     return MangaDetailsFragment.newInstance(catalogItem);
                 case 1:
-                    return MangaDetailsFragment.newInstance(catalogItem);
+                    return MangaChapterFragment.newInstance(1, catalogItem);
             }
             return null;
         }
@@ -128,6 +130,10 @@ public class MangaPageActivity extends AppCompatActivity
             }
             return null;
         }
+    }
+
+    public void OnMangaChapterItemSelected(MangaChapterItem item) {
+
     }
 
 }

@@ -15,11 +15,6 @@ import com.lawrr.mangareader.ui.items.CatalogItem;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * {@link RecyclerView.Adapter} that can display a {@link CatalogItem} and makes a call to the
- * specified {@link CatalogFragment.CatalogInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
- */
 public class CatalogItemAdapter extends RecyclerView.Adapter<CatalogItemAdapter.ViewHolder> implements Filterable {
 
     // Items being shown on list (changes with filter)
