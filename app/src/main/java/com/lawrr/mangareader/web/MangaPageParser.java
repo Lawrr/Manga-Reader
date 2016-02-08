@@ -47,8 +47,8 @@ public class MangaPageParser extends AsyncTask<String, Void, MangaSeriesItem> {
     public MangaSeriesItem getMangaPage(String url) throws IOException {
         MangaSeriesItem item = new MangaSeriesItem();
         Document doc = Jsoup.connect(url).maxBodySize(0).get();
-        item.setAuthor("Foo bar");
-        item.setArtist("Foo bar");
+        item.setAuthor(doc.select("td a[href^=/search/author/").text());
+        item.setArtist(doc.select("td a[href^=/search/artist/").text());
         item.setImageUrl(doc.select(".cover img").attr("src"));
         item.setSummary(doc.select(".summary").text());
         return item;

@@ -2,23 +2,19 @@ package com.lawrr.mangareader.ui.fragments;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.Volley;
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.items.CatalogItem;
 import com.lawrr.mangareader.ui.items.MangaSeriesItem;
@@ -35,6 +31,8 @@ public class MangaDetailsFragment extends Fragment
     // Views
     private ProgressBar progressBar;
     private ImageView imageView;
+    private TextView infoView;
+    private TextView summaryView;
 
     public MangaDetailsFragment() {
         // Required empty public constructor
@@ -70,6 +68,8 @@ public class MangaDetailsFragment extends Fragment
         // View lookups
         progressBar = (ProgressBar) view.findViewById(R.id.fragment_manga_details_progress_bar);
         imageView = (ImageView) view.findViewById(R.id.fragment_manga_details_image);
+        infoView = (TextView) view.findViewById(R.id.fragment_manga_details_info);
+        summaryView = (TextView) view.findViewById(R.id.fragment_manga_details_summary);
     }
 
     @Override
@@ -89,13 +89,15 @@ public class MangaDetailsFragment extends Fragment
         mListener = null;
     }
 
-    public void onRetrievedMangaPage(MangaSeriesItem item) {
+    public void onRetrievedMangaPage(final MangaSeriesItem item) {
         // Retrieves an image specified by the URL, displays it in the UI.
         ImageRequest request = new ImageRequest(item.getImageUrl(),
             new Response.Listener<Bitmap>() {
                 @Override
                 public void onResponse(Bitmap bitmap) {
                     imageView.setImageBitmap(bitmap);
+                    infoView.setText(Html.fromHtml("<b>Author</b>: " + item.getAuthor() + "<br /><b>Artist</b>: " + item.getArtist()));
+                    summaryView.setText(item.getSummary());
                     progressBar.setVisibility(View.GONE);
                 }
             }, 0, 0, null,
