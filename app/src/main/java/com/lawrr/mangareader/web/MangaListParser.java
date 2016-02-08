@@ -49,7 +49,7 @@ public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> 
     public List<CatalogItem> getMangaList(String url) throws IOException {
         List<CatalogItem> list = new ArrayList<>();
         Log.d("Manga", "Downloading page");
-        Document doc = Jsoup.connect(url).maxBodySize(0).get();
+        Document doc = Jsoup.connect(url).maxBodySize(0).timeout(10 * 1000).get();
         Log.d("Manga", "Selecting elements");
         Elements manga = doc.select(".manga_list li a");
         Log.d("Manga", "Creating items");
