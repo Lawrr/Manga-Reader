@@ -81,7 +81,7 @@ public class CatalogFragment extends Fragment implements MangaSiteWrapper.MangaL
         listAdapter = new CatalogItemAdapter(items, mListener);
 
         // Load list
-        loadMangaList("http://mangafox.me/manga");
+        MangaSiteWrapper.GetMangaList(this, "http://mangafox.me/manga");
     }
 
     @Override
@@ -149,10 +149,6 @@ public class CatalogFragment extends Fragment implements MangaSiteWrapper.MangaL
     public void onRetrievedMangaList(List<CatalogItem> items) {
         progressBar.setVisibility(View.GONE);
         updateMangaList(items);
-    }
-
-    private void loadMangaList(String url) {
-        MangaSiteWrapper.GetMangaList(this, url);
     }
 
     private void updateMangaList(List<CatalogItem> items) {

@@ -18,11 +18,10 @@ import com.android.volley.toolbox.ImageRequest;
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.items.CatalogItem;
 import com.lawrr.mangareader.ui.items.MangaSeriesItem;
-import com.lawrr.mangareader.web.mangasite.MangaPageParser;
 import com.lawrr.mangareader.web.VolleySingleton;
+import com.lawrr.mangareader.web.mangasite.MangaSiteWrapper;
 
-public class MangaDetailsFragment extends Fragment
-        implements MangaPageParser.MangaPageParserInteractionListener {
+public class MangaDetailsFragment extends Fragment implements MangaSiteWrapper.MangaPageListener {
     private static final String ARG_CATALOG_ITEM = "catalog_item";
 
     private CatalogItem catalogItem;
@@ -52,7 +51,8 @@ public class MangaDetailsFragment extends Fragment
         if (getArguments() != null) {
             catalogItem = getArguments().getParcelable(ARG_CATALOG_ITEM);
 
-            loadMangaDetails(catalogItem.getUrlId());
+            // Load page details
+            MangaSiteWrapper.GetMangaPage(this, catalogItem.getUrlId());
         }
     }
 
@@ -113,10 +113,6 @@ public class MangaDetailsFragment extends Fragment
                     }
                 });
         VolleySingleton.getInstance(this.getActivity()).addToRequestQueue(request);
-    }
-
-    private void loadMangaDetails(String url) {
-        (new MangaPageParser(this)).execute(url);
     }
 
     public interface MangaDetailsInteractionListener {

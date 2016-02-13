@@ -15,11 +15,11 @@ import java.io.IOException;
 import java.util.List;
 
 public class MangaPageParser extends AsyncTask<String, Void, MangaSeriesItem> {
-    private MangaPageParserInteractionListener listener;
+    private MangaSiteWrapper.MangaPageListener listener;
     private long start;
     private long end;
 
-    public MangaPageParser(MangaPageParserInteractionListener listener) {
+    public MangaPageParser(MangaSiteWrapper.MangaPageListener listener) {
         this.listener = listener;
     }
 
@@ -54,7 +54,4 @@ public class MangaPageParser extends AsyncTask<String, Void, MangaSeriesItem> {
         return item;
     }
 
-    public interface MangaPageParserInteractionListener {
-        void onRetrievedMangaPage(MangaSeriesItem item);
-    }
 }

@@ -16,14 +16,11 @@ import com.lawrr.mangareader.ui.adapters.MangaChapterItemAdapter;
 import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
 import com.lawrr.mangareader.ui.items.CatalogItem;
 import com.lawrr.mangareader.ui.items.MangaChapterItem;
-import com.lawrr.mangareader.ui.items.MangaSeriesItem;
-import com.lawrr.mangareader.web.mangasite.MangaPageParser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MangaChapterFragment extends Fragment
-        implements MangaPageParser.MangaPageParserInteractionListener {
+public class MangaChapterFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column_count";
     private static final String ARG_CATALOG_ITEM = "catalog_item";
@@ -105,9 +102,6 @@ public class MangaChapterFragment extends Fragment
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public void onRetrievedMangaPage(MangaSeriesItem item) {
     }
 
     public interface MangaChapterInteractionListener {
