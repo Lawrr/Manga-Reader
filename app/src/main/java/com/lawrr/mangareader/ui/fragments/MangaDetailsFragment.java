@@ -18,7 +18,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.items.CatalogItem;
 import com.lawrr.mangareader.ui.items.MangaSeriesItem;
-import com.lawrr.mangareader.web.MangaPageParser;
+import com.lawrr.mangareader.web.mangasite.MangaPageParser;
 import com.lawrr.mangareader.web.VolleySingleton;
 
 public class MangaDetailsFragment extends Fragment

@@ -9,7 +9,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,7 +23,7 @@ import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.adapters.CatalogItemAdapter;
 import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
 import com.lawrr.mangareader.ui.items.CatalogItem;
-import com.lawrr.mangareader.web.MangaListParser;
+import com.lawrr.mangareader.web.mangasite.MangaSiteWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +34,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link CatalogInteractionListener}
  * interface.
  */
-public class CatalogFragment extends Fragment implements MangaListParser.MangaListParserInteractionListener {
+public class CatalogFragment extends Fragment implements MangaSiteWrapper.MangaListListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -148,14 +147,12 @@ public class CatalogFragment extends Fragment implements MangaListParser.MangaLi
     }
 
     public void onRetrievedMangaList(List<CatalogItem> items) {
-        Log.d("Manga", "Loaded manga list");
         progressBar.setVisibility(View.GONE);
         updateMangaList(items);
     }
 
     private void loadMangaList(String url) {
-        Log.d("Manga", "Loading manga list");
-        (new MangaListParser(this)).execute(url);
+        MangaSiteWrapper.GetMangaList(this, url);
     }
 
     private void updateMangaList(List<CatalogItem> items) {

@@ -17,7 +17,7 @@ import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
 import com.lawrr.mangareader.ui.items.CatalogItem;
 import com.lawrr.mangareader.ui.items.MangaChapterItem;
 import com.lawrr.mangareader.ui.items.MangaSeriesItem;
-import com.lawrr.mangareader.web.MangaPageParser;
+import com.lawrr.mangareader.web.mangasite.MangaPageParser;
 
 import java.util.ArrayList;
 import java.util.List;

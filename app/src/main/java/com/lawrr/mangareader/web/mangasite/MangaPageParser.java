@@ -1,4 +1,4 @@
-package com.lawrr.mangareader.web;
+package com.lawrr.mangareader.web.mangasite;
 
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;

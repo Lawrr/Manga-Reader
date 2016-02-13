@@ -1,8 +1,7 @@
-package com.lawrr.mangareader.web;
+package com.lawrr.mangareader.web.mangasite;
 
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.lawrr.mangareader.ui.items.CatalogItem;
@@ -17,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> {
-    private MangaListParserInteractionListener listener;
+    private MangaSiteWrapper.MangaListListener listener;
     private long start;
     private long end;
 
-    public MangaListParser(MangaListParserInteractionListener listener) {
+    public MangaListParser(MangaSiteWrapper.MangaListListener listener) {
         this.listener = listener;
     }
 
@@ -33,7 +32,6 @@ public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> 
             end = System.currentTimeMillis();
             return list;
         } catch (IOException e) {
-            Log.e("Manga", "IOException loading manga list", e);
             return new ArrayList<>();
         }
     }
@@ -48,21 +46,14 @@ public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> 
 
     public List<CatalogItem> getMangaList(String url) throws IOException {
         List<CatalogItem> list = new ArrayList<>();
-        Log.d("Manga", "Downloading page");
         Document doc = Jsoup.connect(url).maxBodySize(0).timeout(10 * 1000).get();
-        Log.d("Manga", "Selecting elements");
         Elements manga = doc.select(".manga_list li a");
-        Log.d("Manga", "Creating items");
         for (Element m : manga) {
             boolean isOngoing = m.attr("class").equals("series_preview manga_open");
             CatalogItem item = new CatalogItem(m.text(), m.attr("href"), isOngoing);
             list.add(item);
         }
-        Log.d("Manga", "Returning list");
         return list;
     }
 
-    public interface MangaListParserInteractionListener {
-        void onRetrievedMangaList(List<CatalogItem> item);
-    }
 }
