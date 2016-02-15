@@ -46,7 +46,7 @@ public class CatalogParser extends AsyncTask<String, Void, List<CatalogItem>> {
 
     public List<CatalogItem> getCatalog(String url) throws IOException {
         List<CatalogItem> list = new ArrayList<>();
-        Document doc = Jsoup.connect(url).maxBodySize(0).timeout(10 * 1000).get();
+        Document doc = Jsoup.connect(url).maxBodySize(0).get();
         Elements manga = doc.select(".manga_list li a");
         for (Element m : manga) {
             boolean isOngoing = m.attr("class").equals("series_preview manga_open");

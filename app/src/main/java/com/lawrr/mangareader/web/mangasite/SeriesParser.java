@@ -27,9 +27,9 @@ public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
     protected SeriesItem doInBackground(String... urls) {
         try {
             start = System.currentTimeMillis();
-            SeriesItem item = getSeriesPage(urls[0]);
+            SeriesItem series = getSeries(urls[0]);
             end = System.currentTimeMillis();
-            return item;
+            return series;
         } catch (IOException e) {
             return null;
         }
@@ -49,9 +49,9 @@ public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
         listener.onRetrievedChapters(items);
     }
 
-    public SeriesItem getSeriesPage(String url) throws IOException {
+    public SeriesItem getSeries(String url) throws IOException {
         SeriesItem item = new SeriesItem();
-        Document doc = Jsoup.connect(url).maxBodySize(0).timeout(10 * 1000).get();
+        Document doc = Jsoup.connect(url).maxBodySize(0).get();
         item.setAuthor(doc.select("td a[href^=/search/author/").text());
         item.setArtist(doc.select("td a[href^=/search/artist/").text());
         item.setImageUrl(doc.select(".cover img").attr("src"));
