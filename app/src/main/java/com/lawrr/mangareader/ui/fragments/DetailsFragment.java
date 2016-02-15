@@ -47,16 +47,16 @@ public class DetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_manga_details, container, false);
+        return inflater.inflate(R.layout.fragment_details, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // View lookups
-        progressBar = (ProgressBar) view.findViewById(R.id.fragment_manga_details_progress_bar);
-        imageView = (ImageView) view.findViewById(R.id.fragment_manga_details_image);
-        infoView = (TextView) view.findViewById(R.id.fragment_manga_details_info);
-        summaryView = (TextView) view.findViewById(R.id.fragment_manga_details_summary);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
+        imageView = (ImageView) view.findViewById(R.id.image);
+        infoView = (TextView) view.findViewById(R.id.info);
+        summaryView = (TextView) view.findViewById(R.id.summary);
     }
 
     @Override

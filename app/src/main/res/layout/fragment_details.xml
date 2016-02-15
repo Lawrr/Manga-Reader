@@ -12,7 +12,7 @@
         android:paddingTop="@dimen/activity_vertical_margin" >
 
         <ProgressBar
-           android:id="@+id/fragment_manga_details_progress_bar"
+           android:id="@+id/progress_bar"
            style="?android:attr/progressBarStyleLarge"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
@@ -20,22 +20,22 @@
            android:layout_centerVertical="true" />
 
         <ImageView
-            android:id="@+id/fragment_manga_details_image"
+            android:id="@+id/image"
             android:layout_width="125dip"
             android:layout_height="190dip" />
 
         <TextView
-            android:id="@+id/fragment_manga_details_info"
+            android:id="@+id/info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/fragment_manga_details_image"
+            android:layout_toRightOf="@id/image"
             android:paddingLeft="6dip" />
 
         <TextView
-            android:id="@+id/fragment_manga_details_summary"
+            android:id="@+id/summary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_manga_details_image"
+            android:layout_below="@id/image"
             android:paddingTop="6dip" />
 
     </RelativeLayout>

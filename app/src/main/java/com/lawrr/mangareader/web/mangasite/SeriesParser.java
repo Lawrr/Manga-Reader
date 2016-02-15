@@ -12,6 +12,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
     private SiteWrapper.SeriesListener listener;
@@ -40,7 +41,12 @@ public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
         long duration = end - start;
 		Toast.makeText(((Activity) listener), "Time taken: " + String.valueOf(duration) + " milliseconds.", Toast.LENGTH_LONG).show();
         listener.onRetrievedSeries(item);
-        listener.onRetrievedChapters(new ArrayList<ChapterItem>());
+
+        List<ChapterItem> items = new ArrayList<>();
+        for(int i = 0; i < 20; i++) {
+            items.add(new ChapterItem(i, "yes"));
+        }
+        listener.onRetrievedChapters(items);
     }
 
     public SeriesItem getSeriesPage(String url) throws IOException {

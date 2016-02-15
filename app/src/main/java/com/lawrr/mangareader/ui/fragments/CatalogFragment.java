@@ -114,7 +114,7 @@ public class CatalogFragment extends Fragment implements SiteWrapper.CatalogList
         SiteWrapper.getCatalog(this, "http://mangafox.me/manga");
 
         // View lookups
-        progressBar = (ProgressBar) view.findViewById(R.id.fragment_catalog_progress_bar);
+        progressBar = (ProgressBar) view.findViewById(R.id.progress_bar);
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
 
         // Set the adapter

@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <ProgressBar
-        android:id="@+id/fragment_manga_chapter_progress_bar"
+        android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,13 +15,11 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/list"
-        android:name="com.lawrr.mangareader.ui.fragments.MangaChapterFragment"
+        android:name="com.lawrr.mangareader.ui.fragments.ChaptersFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context=".ui.fragments.ChaptersFragment"
-        tools:listitem="@layout/fragment_manga_chapter_item" />
+        tools:listitem="@layout/fragment_chapters_item" />
 
 </RelativeLayout>
