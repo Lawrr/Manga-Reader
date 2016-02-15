@@ -1,11 +1,11 @@
 package com.lawrr.mangareader.ui.items;
 
-public class MangaChapterItem {
+public class ChapterItem {
 
     private int id;
     private String content;
 
-    public MangaChapterItem(int id, String content) {
+    public ChapterItem(int id, String content) {
         this.id = id;
         this.content = content;
     }

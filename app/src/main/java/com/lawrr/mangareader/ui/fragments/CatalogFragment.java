@@ -23,7 +23,7 @@ import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.adapters.CatalogItemAdapter;
 import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
 import com.lawrr.mangareader.ui.items.CatalogItem;
-import com.lawrr.mangareader.web.mangasite.MangaSiteWrapper;
+import com.lawrr.mangareader.web.mangasite.SiteWrapper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.List;
  * Activities containing this fragment MUST implement the {@link CatalogInteractionListener}
  * interface.
  */
-public class CatalogFragment extends Fragment implements MangaSiteWrapper.MangaListListener {
+public class CatalogFragment extends Fragment implements SiteWrapper.CatalogListener {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -81,7 +81,7 @@ public class CatalogFragment extends Fragment implements MangaSiteWrapper.MangaL
         listAdapter = new CatalogItemAdapter(items, mListener);
 
         // Load list
-        MangaSiteWrapper.GetMangaList(this, "http://mangafox.me/manga");
+        SiteWrapper.getCatalog(this, "http://mangafox.me/manga");
     }
 
     @Override
@@ -146,7 +146,7 @@ public class CatalogFragment extends Fragment implements MangaSiteWrapper.MangaL
         mListener = null;
     }
 
-    public void onRetrievedMangaList(List<CatalogItem> items) {
+    public void onRetrievedCatalog(List<CatalogItem> items) {
         progressBar.setVisibility(View.GONE);
         updateMangaList(items);
     }

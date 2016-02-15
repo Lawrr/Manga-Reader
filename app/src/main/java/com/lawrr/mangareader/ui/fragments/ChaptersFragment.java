@@ -12,36 +12,36 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.lawrr.mangareader.R;
-import com.lawrr.mangareader.ui.adapters.MangaChapterItemAdapter;
+import com.lawrr.mangareader.ui.adapters.ChapterItemAdapter;
 import com.lawrr.mangareader.ui.decorations.DividerItemDecoration;
 import com.lawrr.mangareader.ui.items.CatalogItem;
-import com.lawrr.mangareader.ui.items.MangaChapterItem;
+import com.lawrr.mangareader.ui.items.ChapterItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MangaChapterFragment extends Fragment {
+public class ChaptersFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column_count";
     private static final String ARG_CATALOG_ITEM = "catalog_item";
 
     private int mColumnCount = 1;
-    private MangaChapterInteractionListener mListener;
+    private ChaptersInteractionListener mListener;
     private CatalogItem catalogItem;
 
     // List
-    private List<MangaChapterItem> items = new ArrayList<>();
-    private MangaChapterItemAdapter listAdapter;
+    private List<ChapterItem> items = new ArrayList<>();
+    private ChapterItemAdapter listAdapter;
 
     // Views
     private RecyclerView recyclerView;
 
-    public MangaChapterFragment() {
+    public ChaptersFragment() {
     }
 
     @SuppressWarnings("unused")
-    public static MangaChapterFragment newInstance(int columnCount, CatalogItem catalogItem) {
-        MangaChapterFragment fragment = new MangaChapterFragment();
+    public static ChaptersFragment newInstance(int columnCount, CatalogItem catalogItem) {
+        ChaptersFragment fragment = new ChaptersFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
         args.putParcelable(ARG_CATALOG_ITEM, catalogItem);
@@ -59,9 +59,9 @@ public class MangaChapterFragment extends Fragment {
         }
 
         for(int i = 0; i < 20; i++) {
-            items.add(new MangaChapterItem(i, "yes"));
+            items.add(new ChapterItem(i, "yes"));
         }
-        listAdapter = new MangaChapterItemAdapter(items, mListener);
+        listAdapter = new ChapterItemAdapter(items, mListener);
     }
 
     @Override
@@ -90,11 +90,11 @@ public class MangaChapterFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof MangaChapterInteractionListener) {
-            mListener = (MangaChapterInteractionListener) activity;
+        if (activity instanceof ChaptersInteractionListener) {
+            mListener = (ChaptersInteractionListener) activity;
         } else {
             throw new RuntimeException(activity.toString()
-                    + " must implement MangaChapterInteractionListener");
+                    + " must implement ChaptersInteractionListener");
         }
     }
 
@@ -104,7 +104,7 @@ public class MangaChapterFragment extends Fragment {
         mListener = null;
     }
 
-    public interface MangaChapterInteractionListener {
-        void OnMangaChapterItemSelected(MangaChapterItem item);
+    public interface ChaptersInteractionListener {
+        void onChapterItemSelected(ChapterItem item);
     }
 }

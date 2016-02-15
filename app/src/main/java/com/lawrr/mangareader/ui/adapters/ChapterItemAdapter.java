@@ -7,19 +7,19 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.lawrr.mangareader.R;
-import com.lawrr.mangareader.ui.fragments.MangaChapterFragment;
-import com.lawrr.mangareader.ui.items.MangaChapterItem;
+import com.lawrr.mangareader.ui.fragments.ChaptersFragment;
+import com.lawrr.mangareader.ui.items.ChapterItem;
 
 import java.util.List;
 
-public class MangaChapterItemAdapter extends RecyclerView.Adapter<MangaChapterItemAdapter.ViewHolder> {
+public class ChapterItemAdapter extends RecyclerView.Adapter<ChapterItemAdapter.ViewHolder> {
 
-    private final List<MangaChapterItem> items;
-    private final MangaChapterFragment.MangaChapterInteractionListener mListener;
+    private final List<ChapterItem> items;
+    private final ChaptersFragment.ChaptersInteractionListener listener;
 
-    public MangaChapterItemAdapter(List<MangaChapterItem> items, MangaChapterFragment.MangaChapterInteractionListener listener) {
+    public ChapterItemAdapter(List<ChapterItem> items, ChaptersFragment.ChaptersInteractionListener listener) {
         this.items = items;
-        mListener = listener;
+        this.listener = listener;
     }
 
     @Override
@@ -38,10 +38,10 @@ public class MangaChapterItemAdapter extends RecyclerView.Adapter<MangaChapterIt
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+                if (null != listener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.OnMangaChapterItemSelected(holder.item);
+                    listener.onChapterItemSelected(holder.item);
                 }
             }
         });
@@ -56,7 +56,7 @@ public class MangaChapterItemAdapter extends RecyclerView.Adapter<MangaChapterIt
         public final View view;
         public final TextView idView;
         public final TextView contentView;
-        public MangaChapterItem item;
+        public ChapterItem item;
 
         public ViewHolder(View view) {
             super(view);

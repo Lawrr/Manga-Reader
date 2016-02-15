@@ -36,7 +36,7 @@ public class LauncherActivity extends AppCompatActivity
     }
 
     public void onCatalogItemSelected(CatalogItem item) {
-        Intent i = new Intent(this, MangaPageActivity.class);
+        Intent i = new Intent(this, SeriesActivity.class);
         i.putExtra("catalogItem", item);
         startActivity(i);
     }

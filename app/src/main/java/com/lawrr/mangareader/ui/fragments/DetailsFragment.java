@@ -17,15 +17,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.lawrr.mangareader.R;
 import com.lawrr.mangareader.ui.items.CatalogItem;
-import com.lawrr.mangareader.ui.items.MangaSeriesItem;
+import com.lawrr.mangareader.ui.items.SeriesItem;
 import com.lawrr.mangareader.web.VolleySingleton;
-import com.lawrr.mangareader.web.mangasite.MangaSiteWrapper;
+import com.lawrr.mangareader.web.mangasite.SiteWrapper;
 
-public class MangaDetailsFragment extends Fragment implements MangaSiteWrapper.MangaPageListener {
+public class DetailsFragment extends Fragment implements SiteWrapper.SeriesListener {
     private static final String ARG_CATALOG_ITEM = "catalog_item";
 
     private CatalogItem catalogItem;
-    private MangaDetailsInteractionListener mListener;
+    private DetailsInteractionListener listener;
 
     // Views
     private ProgressBar progressBar;
@@ -33,12 +33,12 @@ public class MangaDetailsFragment extends Fragment implements MangaSiteWrapper.M
     private TextView infoView;
     private TextView summaryView;
 
-    public MangaDetailsFragment() {
+    public DetailsFragment() {
         // Required empty public constructor
     }
 
-    public static MangaDetailsFragment newInstance(CatalogItem catalogItem) {
-        MangaDetailsFragment fragment = new MangaDetailsFragment();
+    public static DetailsFragment newInstance(CatalogItem catalogItem) {
+        DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_CATALOG_ITEM, catalogItem);
         fragment.setArguments(args);
@@ -52,7 +52,7 @@ public class MangaDetailsFragment extends Fragment implements MangaSiteWrapper.M
             catalogItem = getArguments().getParcelable(ARG_CATALOG_ITEM);
 
             // Load page details
-            MangaSiteWrapper.GetMangaPage(this, catalogItem.getUrlId());
+            SiteWrapper.getSeries(this, catalogItem.getUrlId());
         }
     }
 
@@ -75,25 +75,25 @@ public class MangaDetailsFragment extends Fragment implements MangaSiteWrapper.M
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (activity instanceof MangaDetailsInteractionListener) {
-            mListener = (MangaDetailsInteractionListener) activity;
+        if (activity instanceof DetailsInteractionListener) {
+            listener = (DetailsInteractionListener) activity;
         } else {
             throw new RuntimeException(activity.toString()
-                    + " must implement MangaDetailsInteractionListener");
+                    + " must implement DetailsInteractionListener");
         }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        listener = null;
     }
 
-    public void onRetrievedMangaPage(MangaSeriesItem item) {
+    public void onRetrievedSeries(SeriesItem item) {
         updateView(item);
     }
 
-    private void updateView(final MangaSeriesItem item) {
+    private void updateView(final SeriesItem item) {
         ImageRequest request = new ImageRequest(item.getImageUrl(),
                 new Response.Listener<Bitmap>() {
                     @Override
@@ -115,6 +115,6 @@ public class MangaDetailsFragment extends Fragment implements MangaSiteWrapper.M
         VolleySingleton.getInstance(this.getActivity()).addToRequestQueue(request);
     }
 
-    public interface MangaDetailsInteractionListener {
+    public interface DetailsInteractionListener {
     }
 }

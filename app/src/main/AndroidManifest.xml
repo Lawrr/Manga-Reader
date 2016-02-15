@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activities.MangaPageActivity"
+            android:name=".ui.activities.SeriesActivity"
             android:label="@string/title_activity_manga_page"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

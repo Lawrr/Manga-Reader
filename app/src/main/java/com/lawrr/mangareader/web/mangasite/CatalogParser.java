@@ -15,12 +15,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> {
-    private MangaSiteWrapper.MangaListListener listener;
+public class CatalogParser extends AsyncTask<String, Void, List<CatalogItem>> {
+    private SiteWrapper.CatalogListener listener;
     private long start;
     private long end;
 
-    public MangaListParser(MangaSiteWrapper.MangaListListener listener) {
+    public CatalogParser(SiteWrapper.CatalogListener listener) {
         this.listener = listener;
     }
 
@@ -28,7 +28,7 @@ public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> 
     protected List<CatalogItem> doInBackground(String... urls) {
         try {
             start = System.currentTimeMillis();
-            List<CatalogItem> list = getMangaList(urls[0]);
+            List<CatalogItem> list = getCatalog(urls[0]);
             end = System.currentTimeMillis();
             return list;
         } catch (IOException e) {
@@ -41,10 +41,10 @@ public class MangaListParser extends AsyncTask<String, Void, List<CatalogItem>> 
         super.onPostExecute(list);
         long duration = end - start;
 		Toast.makeText(((Fragment) listener).getActivity(), "Time taken: " + String.valueOf(duration) + " milliseconds.", Toast.LENGTH_LONG).show();
-        listener.onRetrievedMangaList(list);
+        listener.onRetrievedCatalog(list);
     }
 
-    public List<CatalogItem> getMangaList(String url) throws IOException {
+    public List<CatalogItem> getCatalog(String url) throws IOException {
         List<CatalogItem> list = new ArrayList<>();
         Document doc = Jsoup.connect(url).maxBodySize(0).timeout(10 * 1000).get();
         Elements manga = doc.select(".manga_list li a");

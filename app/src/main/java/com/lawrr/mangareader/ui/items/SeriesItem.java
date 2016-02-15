@@ -1,12 +1,12 @@
 package com.lawrr.mangareader.ui.items;
 
-public class MangaSeriesItem {
+public class SeriesItem {
     private String imageUrl;
     private String summary;
     private String author;
     private String artist;
 
-    public MangaSeriesItem() {
+    public SeriesItem() {
     }
 
     public String getImageUrl() {

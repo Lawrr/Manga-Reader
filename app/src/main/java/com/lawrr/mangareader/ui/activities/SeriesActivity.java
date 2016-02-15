@@ -15,13 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.lawrr.mangareader.R;
-import com.lawrr.mangareader.ui.fragments.MangaChapterFragment;
-import com.lawrr.mangareader.ui.fragments.MangaDetailsFragment;
+import com.lawrr.mangareader.ui.fragments.ChaptersFragment;
+import com.lawrr.mangareader.ui.fragments.DetailsFragment;
 import com.lawrr.mangareader.ui.items.CatalogItem;
-import com.lawrr.mangareader.ui.items.MangaChapterItem;
+import com.lawrr.mangareader.ui.items.ChapterItem;
 
-public class MangaPageActivity extends AppCompatActivity
-        implements MangaDetailsFragment.MangaDetailsInteractionListener, MangaChapterFragment.MangaChapterInteractionListener {
+public class SeriesActivity extends AppCompatActivity
+        implements DetailsFragment.DetailsInteractionListener, ChaptersFragment.ChaptersInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -31,12 +31,12 @@ public class MangaPageActivity extends AppCompatActivity
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private SectionsPagerAdapter sectionsPagerAdapter;
 
     /**
      * The {@link ViewPager} that will host the section contents.
      */
-    private ViewPager mViewPager;
+    private ViewPager viewPager;
 
     private CatalogItem catalogItem;
 
@@ -54,14 +54,14 @@ public class MangaPageActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager.setAdapter(sectionsPagerAdapter);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setupWithViewPager(viewPager);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -108,9 +108,9 @@ public class MangaPageActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return MangaDetailsFragment.newInstance(catalogItem);
+                    return DetailsFragment.newInstance(catalogItem);
                 case 1:
-                    return MangaChapterFragment.newInstance(1, catalogItem);
+                    return ChaptersFragment.newInstance(1, catalogItem);
             }
             return null;
         }
@@ -132,7 +132,7 @@ public class MangaPageActivity extends AppCompatActivity
         }
     }
 
-    public void OnMangaChapterItemSelected(MangaChapterItem item) {
+    public void onChapterItemSelected(ChapterItem item) {
 
     }
 
