@@ -16,15 +16,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.lawrr.mangareader.R;
-import com.lawrr.mangareader.ui.items.CatalogItem;
 import com.lawrr.mangareader.ui.items.SeriesItem;
 import com.lawrr.mangareader.web.VolleySingleton;
-import com.lawrr.mangareader.web.mangasite.SiteWrapper;
 
-public class DetailsFragment extends Fragment implements SiteWrapper.SeriesListener {
-    private static final String ARG_CATALOG_ITEM = "catalog_item";
+public class DetailsFragment extends Fragment {
 
-    private CatalogItem catalogItem;
     private DetailsInteractionListener listener;
 
     // Views
@@ -37,23 +33,14 @@ public class DetailsFragment extends Fragment implements SiteWrapper.SeriesListe
         // Required empty public constructor
     }
 
-    public static DetailsFragment newInstance(CatalogItem catalogItem) {
+    public static DetailsFragment newInstance() {
         DetailsFragment fragment = new DetailsFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_CATALOG_ITEM, catalogItem);
-        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            catalogItem = getArguments().getParcelable(ARG_CATALOG_ITEM);
-
-            // Load page details
-            SiteWrapper.getSeries(this, catalogItem.getUrlId());
-        }
     }
 
     @Override
@@ -89,11 +76,7 @@ public class DetailsFragment extends Fragment implements SiteWrapper.SeriesListe
         listener = null;
     }
 
-    public void onRetrievedSeries(SeriesItem item) {
-        updateView(item);
-    }
-
-    private void updateView(final SeriesItem item) {
+    public void setView(final SeriesItem item) {
         ImageRequest request = new ImageRequest(item.getImageUrl(),
                 new Response.Listener<Bitmap>() {
                     @Override

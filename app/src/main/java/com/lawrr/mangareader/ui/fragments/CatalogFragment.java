@@ -79,9 +79,6 @@ public class CatalogFragment extends Fragment implements SiteWrapper.CatalogList
         setHasOptionsMenu(true);
 
         listAdapter = new CatalogItemAdapter(items, mListener);
-
-        // Load list
-        SiteWrapper.getCatalog(this, "http://mangafox.me/manga");
     }
 
     @Override
@@ -113,6 +110,9 @@ public class CatalogFragment extends Fragment implements SiteWrapper.CatalogList
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
+        // Load list
+        SiteWrapper.getCatalog(this, "http://mangafox.me/manga");
+
         // View lookups
         progressBar = (ProgressBar) view.findViewById(R.id.fragment_catalog_progress_bar);
         recyclerView = (RecyclerView) view.findViewById(R.id.list);

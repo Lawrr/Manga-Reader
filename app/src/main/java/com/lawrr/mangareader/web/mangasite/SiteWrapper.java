@@ -22,6 +22,7 @@ public class SiteWrapper {
 
     public interface SeriesListener {
         void onRetrievedSeries(SeriesItem item);
+        void onRetrievedChapters(List<ChapterItem> items);
     }
 
 }

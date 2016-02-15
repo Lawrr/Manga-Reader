@@ -1,15 +1,17 @@
 package com.lawrr.mangareader.web.mangasite;
 
+import android.app.Activity;
 import android.os.AsyncTask;
-import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.lawrr.mangareader.ui.items.ChapterItem;
 import com.lawrr.mangareader.ui.items.SeriesItem;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
     private SiteWrapper.SeriesListener listener;
@@ -36,8 +38,9 @@ public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
     protected void onPostExecute(SeriesItem item) {
         super.onPostExecute(item);
         long duration = end - start;
-		Toast.makeText(((Fragment) listener).getActivity(), "Time taken: " + String.valueOf(duration) + " milliseconds.", Toast.LENGTH_LONG).show();
+		Toast.makeText(((Activity) listener), "Time taken: " + String.valueOf(duration) + " milliseconds.", Toast.LENGTH_LONG).show();
         listener.onRetrievedSeries(item);
+        listener.onRetrievedChapters(new ArrayList<ChapterItem>());
     }
 
     public SeriesItem getSeriesPage(String url) throws IOException {

@@ -19,9 +19,16 @@ import com.lawrr.mangareader.ui.fragments.ChaptersFragment;
 import com.lawrr.mangareader.ui.fragments.DetailsFragment;
 import com.lawrr.mangareader.ui.items.CatalogItem;
 import com.lawrr.mangareader.ui.items.ChapterItem;
+import com.lawrr.mangareader.ui.items.SeriesItem;
+import com.lawrr.mangareader.web.mangasite.SiteWrapper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SeriesActivity extends AppCompatActivity
-        implements DetailsFragment.DetailsInteractionListener, ChaptersFragment.ChaptersInteractionListener {
+        implements SiteWrapper.SeriesListener,
+                   DetailsFragment.DetailsInteractionListener,
+                   ChaptersFragment.ChaptersInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,6 +45,8 @@ public class SeriesActivity extends AppCompatActivity
      */
     private ViewPager viewPager;
 
+    private DetailsFragment detailsFragment;
+    private ChaptersFragment chaptersFragment;
     private CatalogItem catalogItem;
 
     @Override
@@ -52,6 +61,11 @@ public class SeriesActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Create the fragments
+        detailsFragment = DetailsFragment.newInstance();
+        chaptersFragment = ChaptersFragment.newInstance(1);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -72,8 +86,9 @@ public class SeriesActivity extends AppCompatActivity
             }
         });
 
+        // Load series
+        SiteWrapper.getSeries(this, catalogItem.getUrlId());
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -108,9 +123,9 @@ public class SeriesActivity extends AppCompatActivity
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return DetailsFragment.newInstance(catalogItem);
+                    return detailsFragment;
                 case 1:
-                    return ChaptersFragment.newInstance(1, catalogItem);
+                    return chaptersFragment;
             }
             return null;
         }
@@ -130,6 +145,14 @@ public class SeriesActivity extends AppCompatActivity
             }
             return null;
         }
+    }
+
+    public void onRetrievedSeries(SeriesItem item) {
+        detailsFragment.setView(item);
+    }
+
+    public void onRetrievedChapters(List<ChapterItem> items) {
+        chaptersFragment.setView(items);
     }
 
     public void onChapterItemSelected(ChapterItem item) {
