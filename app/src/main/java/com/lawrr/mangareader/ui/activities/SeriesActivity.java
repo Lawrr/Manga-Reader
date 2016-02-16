@@ -22,7 +22,6 @@ import com.lawrr.mangareader.ui.items.ChapterItem;
 import com.lawrr.mangareader.ui.items.SeriesItem;
 import com.lawrr.mangareader.web.mangasite.SiteWrapper;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SeriesActivity extends AppCompatActivity
@@ -87,7 +86,7 @@ public class SeriesActivity extends AppCompatActivity
         });
 
         // Load series
-        SiteWrapper.getSeries(this, catalogItem.getUrlId());
+        SiteWrapper.getSeries(this, catalogItem.getUrl());
     }
 
     @Override

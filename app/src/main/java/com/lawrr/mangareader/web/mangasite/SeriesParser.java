@@ -9,13 +9,19 @@ import com.lawrr.mangareader.ui.items.SeriesItem;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
+public class SeriesParser extends AsyncTask<String, Void, Void> {
     private SiteWrapper.SeriesListener listener;
+
+    private SeriesItem series;
+    private List<ChapterItem> chapters;
+
     private long start;
     private long end;
 
@@ -24,39 +30,48 @@ public class SeriesParser extends AsyncTask<String, Void, SeriesItem> {
     }
 
     @Override
-    protected SeriesItem doInBackground(String... urls) {
+    protected Void doInBackground(String... urls) {
         try {
             start = System.currentTimeMillis();
-            SeriesItem series = getSeries(urls[0]);
+            Document page = Jsoup.connect(urls[0]).maxBodySize(0).get();
+            series = getSeries(page);
+            chapters = getChapters(page);
             end = System.currentTimeMillis();
-            return series;
         } catch (IOException e) {
-            return null;
+            // Error
         }
+        return null;
     }
 
     @Override
-    protected void onPostExecute(SeriesItem item) {
-        super.onPostExecute(item);
+    protected void onPostExecute(Void result) {
+        super.onPostExecute(result);
         long duration = end - start;
 		Toast.makeText(((Activity) listener), "Time taken: " + String.valueOf(duration) + " milliseconds.", Toast.LENGTH_LONG).show();
-        listener.onRetrievedSeries(item);
 
-        List<ChapterItem> items = new ArrayList<>();
-        for(int i = 0; i < 20; i++) {
-            items.add(new ChapterItem(i, "yes"));
-        }
-        listener.onRetrievedChapters(items);
+        listener.onRetrievedSeries(series);
+        listener.onRetrievedChapters(chapters);
     }
 
-    public SeriesItem getSeries(String url) throws IOException {
-        SeriesItem item = new SeriesItem();
-        Document doc = Jsoup.connect(url).maxBodySize(0).get();
-        item.setAuthor(doc.select("td a[href^=/search/author/").text());
-        item.setArtist(doc.select("td a[href^=/search/artist/").text());
-        item.setImageUrl(doc.select(".cover img").attr("src"));
-        item.setSummary(doc.select(".summary").text());
-        return item;
+    public SeriesItem getSeries(Document page) throws IOException {
+        String author = page.select("td a[href^=/search/author/").text();
+        String artist = page.select("td a[href^=/search/artist/").text();
+        String imageUrl = page.select(".cover img").attr("src");
+        String summary = page.select(".summary").text();
+        return new SeriesItem(author, artist, imageUrl, summary);
+    }
+
+    public List<ChapterItem> getChapters(Document page) throws IOException {
+        List<ChapterItem> chapters = new ArrayList<>();
+        Elements chapterElements = page.select("#chapters li");
+        for (Element e : chapterElements) {
+            String name = e.select(".tips").text();
+            String title = e.select(".title").text();
+            String url = e.select(".tips").attr("href");
+            String date = e.select(".date").text();
+            chapters.add(new ChapterItem(name, title, url, date));
+        }
+        return chapters;
     }
 
 }

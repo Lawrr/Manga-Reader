@@ -5,12 +5,12 @@ import android.os.Parcelable;
 
 public class CatalogItem implements Parcelable {
     private String name;
-    private String urlId;
+    private String url;
     private boolean isOngoing;
 
-    public CatalogItem(String name, String urlId, boolean isOngoing) {
+    public CatalogItem(String name, String url, boolean isOngoing) {
         this.name = name;
-        this.urlId = urlId;
+        this.url = url;
         this.isOngoing = isOngoing;
     }
 
@@ -23,8 +23,8 @@ public class CatalogItem implements Parcelable {
         return name;
     }
 
-    public String getUrlId() {
-        return urlId;
+    public String getUrl() {
+        return url;
     }
 
     public boolean isOngoing() {
@@ -39,13 +39,13 @@ public class CatalogItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
-        dest.writeString(this.urlId);
+        dest.writeString(this.url);
         dest.writeByte(isOngoing ? (byte) 1 : (byte) 0);
     }
 
     protected CatalogItem(Parcel in) {
         this.name = in.readString();
-        this.urlId = in.readString();
+        this.url = in.readString();
         this.isOngoing = in.readByte() != 0;
     }
 

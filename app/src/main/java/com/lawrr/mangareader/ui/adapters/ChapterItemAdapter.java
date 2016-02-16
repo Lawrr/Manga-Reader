@@ -32,8 +32,8 @@ public class ChapterItemAdapter extends RecyclerView.Adapter<ChapterItemAdapter.
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item = items.get(position);
-        holder.idView.setText(String.valueOf(items.get(position).getId()));
-        holder.contentView.setText(items.get(position).getContent());
+        holder.idView.setText(String.valueOf(items.get(position).getName()));
+        holder.contentView.setText(items.get(position).getTitle());
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override

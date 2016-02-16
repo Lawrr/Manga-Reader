@@ -2,28 +2,31 @@ package com.lawrr.mangareader.ui.items;
 
 public class ChapterItem {
 
-    private int id;
-    private String content;
+    private String name;
+    private String title;
+    private String url;
+    private String date;
 
-    public ChapterItem(int id, String content) {
-        this.id = id;
-        this.content = content;
+    public ChapterItem(String name, String title, String url, String date) {
+        this.name = name;
+        this.title = title;
+        this.url = url;
+        this.date = date;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public String getTitle() {
+        return title;
     }
 
-    public int getId() {
-        return id;
+    public String getUrl() {
+        return url;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getDate() {
+        return date;
     }
-
 }
