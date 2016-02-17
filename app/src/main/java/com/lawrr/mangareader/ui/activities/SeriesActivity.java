@@ -52,7 +52,7 @@ public class SeriesActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_manga_page);
+        setContentView(R.layout.activity_series);
 
         // Get parcelable
         catalogItem = getIntent().getParcelableExtra("catalogItem");
