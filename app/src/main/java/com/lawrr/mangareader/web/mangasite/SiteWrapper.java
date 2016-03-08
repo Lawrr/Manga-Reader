@@ -16,6 +16,10 @@ public class SiteWrapper {
         (new SeriesParser(listener)).execute(url);
     }
 
+    public static void getChapter(ChapterListener listener, String url) {
+        (new ChapterParser(listener)).execute(url);
+    }
+
     public interface CatalogListener {
         void onRetrievedCatalog(List<CatalogItem> items);
     }
@@ -23,6 +27,10 @@ public class SiteWrapper {
     public interface SeriesListener {
         void onRetrievedSeries(SeriesItem item);
         void onRetrievedChapters(List<ChapterItem> items);
+    }
+
+    public interface ChapterListener {
+        void onRetrievedChapter(List<String> imageUrls);
     }
 
 }

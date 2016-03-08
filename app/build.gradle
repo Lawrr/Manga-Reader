@@ -27,4 +27,5 @@ dependencies {
     compile 'org.jsoup:jsoup:1.8.3'
     compile 'com.android.support:design:22.2.1'
     compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 }

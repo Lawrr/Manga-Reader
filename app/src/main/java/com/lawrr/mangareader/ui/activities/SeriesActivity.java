@@ -157,6 +157,7 @@ public class SeriesActivity extends AppCompatActivity
 
     public void onChapterItemSelected(ChapterItem item) {
         Intent i = new Intent(this, ReaderActivity.class);
+        i.putExtra("chapterItem", item);
         startActivity(i);
     }
 

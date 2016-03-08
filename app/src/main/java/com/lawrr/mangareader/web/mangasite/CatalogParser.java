@@ -2,6 +2,7 @@ package com.lawrr.mangareader.web.mangasite;
 
 import android.os.AsyncTask;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.lawrr.mangareader.ui.items.CatalogItem;
@@ -26,14 +27,15 @@ public class CatalogParser extends AsyncTask<String, Void, List<CatalogItem>> {
 
     @Override
     protected List<CatalogItem> doInBackground(String... urls) {
+        List<CatalogItem> list = null;
         try {
             start = System.currentTimeMillis();
-            List<CatalogItem> list = getCatalog(urls[0]);
+            list = getCatalog(urls[0]);
             end = System.currentTimeMillis();
-            return list;
         } catch (IOException e) {
-            return new ArrayList<>();
         }
+
+        return list;
     }
 
     @Override
